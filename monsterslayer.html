@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monster Slayer</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="monsterslayer.css" />
+    <script src="https://unpkg.com/vue@next" defer></script>
+    <script src="monsterslayer.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <h1>🐱‍🏍 MONSTER SLAYER 🦔</h1>
+    </header>
+    <div id="game">
+      <!-- Monster -->
+      <section id="monster" class="container">
+        <h2>Monster Health</h2>
+        <div class="healthbar">
+          <div class="healthbar__value" v-bind:style="monsterBarStyles"></div>
+          <!-- ALso we can use :style only -->
+        </div>
+      </section>
+      <!-- Player -->
+      <section id="player" class="container">
+        <h2>Your Health</h2>
+        <div class="healthbar">
+          <div class="healthbar__value" :style="playerBarStyles"></div>
+        </div>
+      </section>
+      <!-- Modal message -->
+      <section class="container" v-if="winner">
+        <h2>Game Over !!</h2>
+        <h3 v-if="winner === 'monster' ">You Lost 🥵</h3>
+        <h3 v-else-if="winner === 'player' ">You Won 🤩</h3>
+        <h3 v-else>Match Draw 🤦‍♂️</h3>
+        <button @click="startGame">Start New Game</button>
+      </section>
+
+      <!-- Controls -->
+      <section id="controls" v-if="!winner">
+        <!--or simply use v-else-->
+        <button @click="attackOnMonster()">ATTACK</button>
+        <!--we can also use v-on:click ,,  also we can use attackOnMonster-->
+        <button
+          v-bind:disabled="mayUseSpecialAttack"
+          @click="specialAttackOnMonster"
+        >
+          SPECIAL ATTACK
+        </button>
+        <button @click="healPlayer">HEAL</button>
+        <button @click="surrender">SURRENDER</button>
+      </section>
+      <!-- Battle Log -->
+      <section id="log" class="container">
+        <h2>Battle Log</h2>
+        <ul>
+          <li v-for="logMessage in logMessages">
+            <!-- {{logMessage.actionBy}} - {{logMessage.actionType}} -
+						{{logMessage.actionValue}} -->
+            <span
+              :class="{'log--player': logMessage.actionBy === 'player','log--monster' : logMessage.actionBy === 'monster'}"
+            >
+              {{logMessage.actionBy === 'player' ?'Player' : 'Monster'}}
+            </span>
+            <span v-if="logMessage.actionType === 'heal'">
+              heals himself by
+              <span class="log--heal">{{logMessage.actionValue}}</span>
+            </span>
+            <span v-else>
+              attacks and deals
+              <span class="log--damage">{{logMessage.actionValue}}</span>
+            </span>
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <button class="container click-me">
+      <a href="gtw.html" target="_blank"> Guess The Word 🤔 </a>
+    </button>
+  </body>
+</html>
