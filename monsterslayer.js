@@ -2,7 +2,8 @@ function getRandomValue(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 
-const app = Vue.createApp({
+const app = new Vue({
+	el:"#game",
 	data() {
 		return {
 			playerHealth: 100,
@@ -101,4 +102,4 @@ const app = Vue.createApp({
 	}
 });
 
-app.mount('#game');
+app.$mount('#game');

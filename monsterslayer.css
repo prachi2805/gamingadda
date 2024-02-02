@@ -3,6 +3,8 @@
   font-family: "Jost", sans-serif;
   margin: 0;
   padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color:  rgb(121, 120, 120) transparent; 
 }
 
 header {
@@ -41,6 +43,11 @@ section {
   margin: 1rem auto;
   box-shadow: 0 2px 8px rgba(3, 250, 36, 0.76);
   border-radius: 12px;
+}
+
+.log-container {
+  max-height: 18rem;
+  overflow-y: auto;
 }
 
 #monster h2 {
@@ -126,8 +133,9 @@ button:disabled {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgb(5, 93, 33);
 }
 .click-me a {
-  color: yellow;
+  color: white;
   text-decoration: none;
 }
